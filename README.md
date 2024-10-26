@@ -1,5 +1,6 @@
 # Keylogger-python
 Um keylogger bem simples em python que ainda precisa de updates no processo de escrever o arquivo log.
+,
 > [!NOTE]
 > Esse projeto foi desenvolvido utilizando: \
 > ![Git](https://img.shields.io/badge/Git-E34F26?style=plastic&logo=git&logoColor=white)
